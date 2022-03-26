@@ -31,6 +31,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
         } else{
             System.out.println("path : "+request.getServletPath());
         }
+        SecurityContextHolder.getContext().setAuthentication(null);
         String authorizationHeader=request.getHeader("Authorization");
         if(authorizationHeader!=null){
             String token=authorizationHeader;
@@ -42,6 +43,8 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             System.out.println("Success !!!");
             filterChain.doFilter(request,response);
+        } else{
+            System.out.println("dont have authorizationHeader");
         }
         filterChain.doFilter(request,response);
 
