@@ -43,6 +43,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
             System.out.println("Success !!!");
             filterChain.doFilter(request,response);
         }
+        filterChain.doFilter(request,response);
 
     }
 }

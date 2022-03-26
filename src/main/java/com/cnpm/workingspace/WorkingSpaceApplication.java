@@ -18,10 +18,10 @@ public class WorkingSpaceApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		String token=jwtUtils.generateTokenFromName("tri");
-		System.out.println("#### TEST TOKEN : "+token);
-		System.out.println("#### NAME FROM TOKEN : "+jwtUtils.getNameFromJwtToken(token));
-		System.out.println("#### Expiration : "+jwtUtils.getExpirationFromJwtToken(token));
-		System.out.println("#### get name  : "+jwtUtils.getNameFromJwtToken("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0cmkiLCJpYXQiOjE2NDgzMDM3MjAsImV4cCI6MTY0ODMwNzMyMH0.y-p5YkqR40wwaZrQdzNIRy9sCFcOAR1BfmLUtC9_PCgvK60oTHpmPbWq2aszbHpimzRSq_JWOvvpIAtWm7GAOQ"));
+//		String token=jwtUtils.generateTokenFromName("tri");
+//		System.out.println("#### TEST TOKEN : "+token);
+//		System.out.println("#### NAME FROM TOKEN : "+jwtUtils.getNameFromJwtToken(token));
+//		System.out.println("#### Expiration : "+jwtUtils.getExpirationFromJwtToken(token));
+//		System.out.println("#### get name  : "+jwtUtils.getNameFromJwtToken("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0cmkiLCJpYXQiOjE2NDgzMDM3MjAsImV4cCI6MTY0ODMwNzMyMH0.y-p5YkqR40wwaZrQdzNIRy9sCFcOAR1BfmLUtC9_PCgvK60oTHpmPbWq2aszbHpimzRSq_JWOvvpIAtWm7GAOQ"));
 	}
 }
