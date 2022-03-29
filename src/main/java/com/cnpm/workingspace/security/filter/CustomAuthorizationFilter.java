@@ -1,8 +1,14 @@
 package com.cnpm.workingspace.security.filter;
 
+import com.cnpm.workingspace.constants.ErrorCode;
+import com.cnpm.workingspace.dto.Message;
 import com.cnpm.workingspace.security.jwt.JwtUtils;
+import com.cnpm.workingspace.security.response.ErrorResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -19,6 +25,8 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
 
     private JwtUtils jwtUtils;
 
+    private ObjectMapper mapper=new ObjectMapper();
+
     public CustomAuthorizationFilter(JwtUtils jwtUtils) {
         this.jwtUtils = jwtUtils;
     }
@@ -26,8 +34,9 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         if(request.getServletPath().equals("/api/auth/login")){
-            System.out.println("path : "+request.getServletPath());
+            System.out.println("path (pass): "+request.getServletPath());
             filterChain.doFilter(request,response);
+            return;
         } else{
             System.out.println("path : "+request.getServletPath());
         }
@@ -35,18 +44,36 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
         String authorizationHeader=request.getHeader("Authorization");
         if(authorizationHeader!=null){
             String token=authorizationHeader;
+            if(!authorizationHeader.startsWith("Bearer ")){
+                System.out.println("invalid token");
+                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                response.setContentType("json/application");
+                response.getWriter().write(mapper.writeValueAsString(new ErrorResponse(ErrorCode.ERROR,new Message("invalid token"))));
+                return;
+            }
+            token=token.replace("Bearer ","");
             System.out.println("get token from request : "+token);
-            String username=jwtUtils.getNameFromJwtToken(token);
-            System.out.println("filter get name : "+username);
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken=
-                    new UsernamePasswordAuthenticationToken(username,null,emptyList());
-            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-            System.out.println("Success !!!");
-            filterChain.doFilter(request,response);
+            try{
+                String username=jwtUtils.getNameFromJwtToken(token);
+                System.out.println("filter get name : "+username);
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken=
+                        new UsernamePasswordAuthenticationToken(username,null,emptyList());
+                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                System.out.println("Success !!!");
+                filterChain.doFilter(request,response);
+            } catch (Exception e){
+                System.out.println("incorrect token");
+                SecurityContextHolder.getContext().setAuthentication(null);
+                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                response.setContentType("json/application");
+                response.getWriter().write(mapper.writeValueAsString(new ErrorResponse(ErrorCode.ERROR,new Message("incorrect token"))));
+                return;
+            }
         } else{
-            System.out.println("dont have authorizationHeader");
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            response.setContentType("json/application");
+            response.getWriter().write(mapper.writeValueAsString(new ErrorResponse(ErrorCode.ERROR,new Message("missing Authorization"))));
         }
-        filterChain.doFilter(request,response);
 
     }
 }

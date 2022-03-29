@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/v1/api/")
+@RequestMapping(value = "/api/")
 public class PersonController {
 
     @Autowired

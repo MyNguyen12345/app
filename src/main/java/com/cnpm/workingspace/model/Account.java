@@ -9,10 +9,13 @@ public class Account {
     @Column(name = "account_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int accountId;
-    @Column(name = "username")
+    @Column(name = "user_name")
     String username;
     @Column(name = "password")
     String password;
+    
+    @OneToOne(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Customer customer;
 
     public Account() {
     }
@@ -44,6 +47,14 @@ public class Account {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     @Override

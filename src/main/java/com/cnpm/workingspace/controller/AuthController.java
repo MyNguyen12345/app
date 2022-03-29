@@ -1,8 +1,12 @@
 package com.cnpm.workingspace.controller;
 
+import com.cnpm.workingspace.constants.ErrorCode;
+import com.cnpm.workingspace.dto.Message;
 import com.cnpm.workingspace.payload.request.LoginRequest;
 import com.cnpm.workingspace.repository.PersonRepository;
 import com.cnpm.workingspace.security.jwt.JwtUtils;
+import com.cnpm.workingspace.security.response.ErrorResponse;
+import com.cnpm.workingspace.security.response.LoginAuthenticator;
 import com.cnpm.workingspace.service.MyUserDetailsService;
 import com.cnpm.workingspace.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/auth/")
 public class AuthController {
 
     @Autowired
@@ -32,18 +36,18 @@ public class AuthController {
 
     @Autowired
     private PersonService service;
-    @PostMapping("/login")
+    @PostMapping("login")
     public ResponseEntity<?> authenticateAccount(@RequestBody LoginRequest loginRequest) throws Exception {
         try{
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword())
             );
-        } catch (BadCredentialsException e){
-            throw new Exception("Incorrect username or password",e);
+        } catch (Exception e){
+            return new ResponseEntity<>(new ErrorResponse(ErrorCode.UNAUTHENTICATED,new Message(e.getMessage())),HttpStatus.OK);
         }
         final UserDetails userDetails = myUserDetailsService.loadUserByUsername(loginRequest.getUsername());
         final String jwt = jwtUtils.generateTokenFromName(userDetails.getUsername());
 
-        return ResponseEntity.ok(jwt);
+        return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS,new LoginAuthenticator(jwt)),HttpStatus.OK);
     }
 }

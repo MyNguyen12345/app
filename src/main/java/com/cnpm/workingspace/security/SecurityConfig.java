@@ -7,6 +7,7 @@ import com.cnpm.workingspace.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.sql.DataSource;
@@ -36,6 +38,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         security.csrf().disable()
                 .authorizeRequests().antMatchers("/api/auth/*").permitAll()
                 .anyRequest().authenticated();
+//        security
+//                .exceptionHandling()
+//                .authenticationEntryPoint((request, response, e) -> {
+//                    response.setStatus(HttpStatus.UNAUTHORIZED.value());
+//                    response.setContentType("application/json");
+//                    response.getWriter().write("{ \"error\": \"You are not authenticated.\" }");
+//                });
         security.addFilter(new CustomAuthenticationFilter(authenticationManager()));
         security.addFilterBefore(new CustomAuthorizationFilter(jwtUtils),UsernamePasswordAuthenticationFilter.class);
     }
