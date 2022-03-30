@@ -48,7 +48,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                 System.out.println("invalid token");
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 response.setContentType("json/application");
-                response.getWriter().write(mapper.writeValueAsString(new ErrorResponse(ErrorCode.ERROR,new Message("invalid token"))));
+                response.getWriter().write(mapper.writeValueAsString(new ErrorResponse(ErrorCode.INVALID_TOKEN,null)));
                 return;
             }
             token=token.replace("Bearer ","");
@@ -66,13 +66,13 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(null);
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 response.setContentType("json/application");
-                response.getWriter().write(mapper.writeValueAsString(new ErrorResponse(ErrorCode.ERROR,new Message("incorrect token"))));
+                response.getWriter().write(mapper.writeValueAsString(new ErrorResponse(ErrorCode.INCORRECT_TOKEN,null)));
                 return;
             }
         } else{
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             response.setContentType("json/application");
-            response.getWriter().write(mapper.writeValueAsString(new ErrorResponse(ErrorCode.ERROR,new Message("missing Authorization"))));
+            response.getWriter().write(mapper.writeValueAsString(new ErrorResponse(ErrorCode.MISSING_AUTHORIZATION,null)));
         }
 
     }

@@ -54,7 +54,7 @@ public class AuthController {
                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword())
             );
         } catch (Exception e){
-            return new ResponseEntity<>(new ErrorResponse(ErrorCode.UNAUTHENTICATED,new Message(e.getMessage())),HttpStatus.OK);
+            return new ResponseEntity<>(new ErrorResponse(ErrorCode.USERNAME_OR_PASSWORD_INCORRECT,null),HttpStatus.OK);
         }
         final UserDetails userDetails = myUserDetailsService.loadUserByUsername(loginRequest.getUsername());
         final String jwt = jwtUtils.generateTokenFromName(userDetails.getUsername());
@@ -66,17 +66,17 @@ public class AuthController {
     public ResponseEntity<?> register(@RequestBody CustomerAccount customerAccount){
         Account account=customerAccount.getAccount();
         if(accountService.existsUsername(account.getUsername())){
-            return new ResponseEntity<>(new ErrorResponse(ErrorCode.UNAUTHENTICATED,new Message("Username already exists")),HttpStatus.OK);
+            return new ResponseEntity<>(new ErrorResponse(ErrorCode.USERNAME_ALREADY_EXISTS,null),HttpStatus.OK);
         }
         System.out.println("not exists");
         Customer customer=customerAccount.getCustomer();
         customer.setAccount(account);
         try{
             int status=customerService.insertCustomer(customer);
-            if(status==1) return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS,new Message("successful")),HttpStatus.OK);
-            else return new ResponseEntity<>(new ErrorResponse(ErrorCode.UNAUTHENTICATED,new Message("failed")),HttpStatus.OK);
+            if(status==1) return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS,null),HttpStatus.OK);
+            else return new ResponseEntity<>(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR,null),HttpStatus.OK);
         } catch (Exception e){
-            return new ResponseEntity<>(new ErrorResponse(ErrorCode.UNAUTHENTICATED,new Message(e.getMessage())),HttpStatus.OK);
+            return new ResponseEntity<>(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR,null),HttpStatus.OK);
         }
     }
 
