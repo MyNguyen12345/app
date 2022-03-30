@@ -1,5 +1,7 @@
 package com.cnpm.workingspace.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,7 +15,8 @@ public class Account {
     String username;
     @Column(name = "password")
     String password;
-    
+
+    @JsonIgnore
     @OneToOne(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Customer customer;
 

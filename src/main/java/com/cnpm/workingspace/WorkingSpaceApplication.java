@@ -24,14 +24,13 @@ public class WorkingSpaceApplication implements CommandLineRunner {
 	JwtUtils jwtUtils;
 
 	@Autowired
-	CustomerService service;
+	CustomerService customerService;
+
+	@Autowired
+	AccountService accountService;
 
 	@Override
 	public void run(String... args) throws Exception {
-		Account account=new Account("trii","142");
-		Customer customer=new Customer("tri@gmail.com","tri","123",new Date(),"Vietname","0123123123");
-		account.setCustomer(customer);
-		int flag=service.insertCustomer(customer);
-		System.out.println("flag : "+(flag==0?false:true));
+		System.out.println("check exist : "+accountService.existsUsername("trii"));
 	}
 }

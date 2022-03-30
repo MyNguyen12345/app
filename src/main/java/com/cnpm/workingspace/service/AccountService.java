@@ -4,6 +4,6 @@ import com.cnpm.workingspace.model.Account;
 import org.springframework.stereotype.Service;
 
 public interface AccountService {
-    boolean existsByUsername(String username);
+    boolean existsUsername(String username);
     int insertAccount(Account account);
 }

@@ -12,9 +12,15 @@ public class AccountServiceImp implements AccountService{
     AccountRepository accountRepository;
 
     @Override
-    public boolean existsByUsername(String username) {
-        // todo : implement
-        return false;
+    public boolean existsUsername(String username) {
+        try{
+            Account account=accountRepository.findByUsername(username);
+            System.out.println("# account : "+account);
+            return account!=null;
+        } catch (Exception e){
+            System.out.println("error : "+e.getMessage());
+            return false;
+        }
     }
 
     @Override
