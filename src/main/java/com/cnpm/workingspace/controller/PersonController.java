@@ -47,6 +47,7 @@ public class PersonController {
     public ResponseEntity<String> insertPerson(@RequestBody Person person){
         try{
             System.out.println("post method");
+            System.out.println("person : "+person);
             personService.insertPerson(person);
             return new ResponseEntity<>("success",HttpStatus.OK);
         } catch (Exception e){
