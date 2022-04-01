@@ -2,16 +2,20 @@ package com.cnpm.workingspace.controller;
 
 import java.util.List;
 
-import com.cnpm.workingspace.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.cnpm.workingspace.model.Price;
 import com.cnpm.workingspace.service.PriceService;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RestController
 @RequestMapping(value = "/api/price")
@@ -42,21 +46,31 @@ public class PriceController {
 		}
 	}
 
-//	@PutMapping(value = "/pricee/{priceId}")
-//	public ResponseEntity<String> updatePrice(@PathVariable int priceId){
-//		System.out.println("put");
-//		return  new ResponseEntity<>("success",HttpStatus.OK);
-////		try{
-////			boolean status=priceService.updatePrce(price, priceId);
-////			if(status){
-////				return new ResponseEntity<>("success",HttpStatus.OK);
-////			} else{
-////				return new ResponseEntity<>("not found price",HttpStatus.NOT_FOUND);
-////			}
-////		} catch (Exception e){
-////			return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
-////		}
-//	}
+	@PutMapping(value = "/pricee/{priceId}")
+	public ResponseEntity<String> updatePrice(@PathVariable int priceId, @RequestBody Price price){
+		System.out.println("put");
+		try{
+			boolean status = priceService.updatePrice(price, priceId);
+			if(status){
+				return new ResponseEntity<>("success",HttpStatus.OK);
+			} else{
+				return new ResponseEntity<>("not found price",HttpStatus.NOT_FOUND);
+			}
+		} catch (Exception e){
+			return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@DeleteMapping(value = "/pricee/{priceId}")
+	public ResponseEntity<String> deletePrice(@PathVariable int priceId){
+		try{
+			priceService.deletePrice(priceId);
+            return new ResponseEntity<String>("Delete success", HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+	}
+	
 
 	@PutMapping("/pricee/{**priceId**}")
 	public ResponseEntity<?> updatePrice(@PathVariable Integer id){

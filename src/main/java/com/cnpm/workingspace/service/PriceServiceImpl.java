@@ -26,7 +26,7 @@ public class PriceServiceImpl implements PriceService {
 	}
 
 	@Override
-	public boolean updatePerson(Price price, int id) {
+	public boolean updatePrice(Price price, int id) {
 		Optional<Price> curPrice = getPriceById(id);
 		if (curPrice.isPresent()) {
 			Price curPriceNew = curPrice.get();
@@ -41,7 +41,7 @@ public class PriceServiceImpl implements PriceService {
 	}
 
 	@Override
-	public void deletePerson(int id) {
+	public void deletePrice(int id) {
 		priceRepository.deleteById(id);
 	}
 	

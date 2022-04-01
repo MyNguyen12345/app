@@ -11,9 +11,9 @@ public interface PriceService {
 	
 	void insertPrice(Price price);
 	
-    boolean updatePerson(Price price, int id);
+    boolean updatePrice(Price price, int id);
     
-    void deletePerson(int id);
+    void deletePrice(int id);
     
     Optional<Price> getPriceById(int id);
 }
