@@ -9,6 +9,7 @@ public enum ErrorCode {
     ERROR("002","Error !"),
     UNAUTHENTICATED("401", "Unauthorized"),
     USERNAME_ALREADY_EXISTS("402","Username already exists"),
+    NOT_FOUND("404","Not found"),
     INVALID_TOKEN("501","Invalid token"),
     INCORRECT_TOKEN("502","Incorrect token"),
     MISSING_AUTHORIZATION("503","Missing authorization"),

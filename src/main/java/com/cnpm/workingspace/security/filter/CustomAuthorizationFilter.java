@@ -67,6 +67,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 response.setContentType("json/application");
                 response.getWriter().write(mapper.writeValueAsString(new ErrorResponse(ErrorCode.INCORRECT_TOKEN,null)));
+                System.out.println("error in incorrect token : "+e.getMessage());
                 return;
             }
         } else{
