@@ -21,12 +21,12 @@ public class PropertyTypeController {
     private PropertyTypeService propertyTypeService;
 
     @GetMapping(value = "property_type/{id}")
-    public ResponseEntity<PropertyType> getPropertyType(@PathVariable(value = "id") int id){
+    public ResponseEntity<?> getPropertyType(@PathVariable(value = "id") int id){
         Optional<PropertyType> propertyType=propertyTypeService.getPropertyTypeById(id);
         if(propertyType.isPresent()){
-            return new ResponseEntity<PropertyType>(propertyType.get(),HttpStatus.OK);
+            return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS,propertyType.get()),HttpStatus.OK);
         } else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new ErrorResponse(ErrorCode.NOT_FOUND,null),HttpStatus.NOT_FOUND);
         }
     }
 
