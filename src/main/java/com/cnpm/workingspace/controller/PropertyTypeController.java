@@ -31,13 +31,9 @@ public class PropertyTypeController {
     }
 
     @GetMapping(value = "property_types")
-    public ResponseEntity<List<PropertyType>> getAllPropertyTypes(){
+    public ResponseEntity<?> getAllPropertyTypes(){
         List<PropertyType> propertyTypes=propertyTypeService.getAllPropertyType();
-        if(propertyTypes.size()>0){
-            return new ResponseEntity<List<PropertyType>>(propertyTypes,HttpStatus.OK);
-        } else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS,propertyTypes),HttpStatus.OK);
     }
 
     @PostMapping(value = "property_type")
