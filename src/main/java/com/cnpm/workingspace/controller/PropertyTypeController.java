@@ -26,7 +26,7 @@ public class PropertyTypeController {
         if(propertyType.isPresent()){
             return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS,propertyType.get()),HttpStatus.OK);
         } else{
-            return new ResponseEntity<>(new ErrorResponse(ErrorCode.NOT_FOUND,null),HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new ErrorResponse(ErrorCode.NOT_FOUND,null),HttpStatus.OK);
         }
     }
 
@@ -44,7 +44,7 @@ public class PropertyTypeController {
             propertyTypeService.insertPropertyType(propertyType);
             return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS,null),HttpStatus.OK);
         } catch (Exception e){
-            return new ResponseEntity<>(new ErrorResponse(ErrorCode.ERROR,e.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(ErrorCode.ERROR,e.getMessage()),HttpStatus.OK);
         }
     }
 
@@ -55,10 +55,10 @@ public class PropertyTypeController {
             if(status){
                 return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS,null),HttpStatus.OK);
             } else{
-                return new ResponseEntity<>(new ErrorResponse(ErrorCode.NOT_FOUND,null),HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(new ErrorResponse(ErrorCode.NOT_FOUND,null),HttpStatus.OK);
             }
         } catch (Exception e){
-            return new ResponseEntity<>(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR,e.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR,e.getMessage()),HttpStatus.OK);
         }
     }
 
@@ -68,7 +68,7 @@ public class PropertyTypeController {
             propertyTypeService.deletePropertyType(id);
             return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS,null),HttpStatus.OK);
         } catch (Exception e){
-            return new ResponseEntity<>(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR,e.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR,e.getMessage()),HttpStatus.OK);
         }
     }
 }
