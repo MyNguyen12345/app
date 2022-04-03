@@ -28,7 +28,9 @@ public class PriceServiceImpl implements PriceService {
 	@Override
 	public boolean updatePrice(Price price, int id) {
 		Optional<Price> curPrice = getPriceById(id);
+		System.out.println("price service");
 		if (curPrice.isPresent()) {
+			System.out.println("id: " + id);
 			Price curPriceNew = curPrice.get();
 			curPriceNew.setHourPrice(price.getHourPrice());
             curPriceNew.setDayPrice(price.getDayPrice());
@@ -47,7 +49,7 @@ public class PriceServiceImpl implements PriceService {
 	
 	@Override
 	public Optional<Price> getPriceById(int id) {
-		return priceRepository.findById(null);
+		return priceRepository.findById(id);
 	}
 	
 }

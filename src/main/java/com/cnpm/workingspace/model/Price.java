@@ -29,8 +29,7 @@ public class Price {
 	public Price() {
 	}
 
-	public Price(int priceId, Double hourPrice, Double dayPrice, Double weekPrice, Double monthPrice) {
-		this.priceId = priceId;
+	public Price(Double hourPrice, Double dayPrice, Double weekPrice, Double monthPrice) {
 		this.hourPrice = hourPrice;
 		this.dayPrice = dayPrice;
 		this.weekPrice = weekPrice;
@@ -77,6 +76,14 @@ public class Price {
 		this.monthPrice = monthPrice;
 	}
 
-	
-	
+	@Override
+	public String toString() {
+		return "Price{" +
+				"priceId=" + priceId +
+				", hourPrice=" + hourPrice +
+				", dayPrice=" + dayPrice +
+				", weekPrice=" + weekPrice +
+				", monthPrice=" + monthPrice +
+				'}';
+	}
 }

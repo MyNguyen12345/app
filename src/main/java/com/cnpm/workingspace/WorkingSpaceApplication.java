@@ -7,6 +7,7 @@ import com.cnpm.workingspace.service.AccountService;
 import com.cnpm.workingspace.service.AccountServiceImp;
 import com.cnpm.workingspace.service.CustomerService;
 import com.cnpm.workingspace.service.PriceService;
+import com.cnpm.workingspace.service.PropertyService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -33,6 +34,9 @@ public class WorkingSpaceApplication implements CommandLineRunner {
 	
 	@Autowired
 	PriceService priceService;
+	
+	@Autowired
+	PropertyService propertyService;
 
 	@Override
 	public void run(String... args) throws Exception {
