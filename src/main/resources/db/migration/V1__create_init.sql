@@ -94,7 +94,7 @@ CREATE TABLE `review`
     customer_id INT      NOT NULL,
     room_id     INT      NOT NULL,
     content     TEXT,
-    create_date DATETIME NOT NULL,
+    createDate DATETIME NOT NULL,
     CONSTRAINT PRIMARY KEY (review_id),
     CONSTRAINT `fk_review_customer` FOREIGN KEY (customer_id) REFERENCES customer (customer_id),
     CONSTRAINT `fk_review_room` FOREIGN KEY (room_id) REFERENCES room (room_id)

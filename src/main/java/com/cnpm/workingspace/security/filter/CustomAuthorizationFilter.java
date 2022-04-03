@@ -1,14 +1,10 @@
 package com.cnpm.workingspace.security.filter;
 
 import com.cnpm.workingspace.constants.ErrorCode;
-import com.cnpm.workingspace.dto.Message;
 import com.cnpm.workingspace.security.jwt.JwtUtils;
 import com.cnpm.workingspace.security.response.ErrorResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -22,7 +18,6 @@ import java.io.IOException;
 import static java.util.Collections.emptyList;
 
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
-
     private JwtUtils jwtUtils;
 
     private ObjectMapper mapper=new ObjectMapper();
@@ -68,6 +63,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                 response.setContentType("json/application");
                 response.getWriter().write(mapper.writeValueAsString(new ErrorResponse(ErrorCode.INCORRECT_TOKEN,null)));
                 System.out.println("error in incorrect token : "+e.getMessage());
+                e.printStackTrace();
                 return;
             }
         } else{

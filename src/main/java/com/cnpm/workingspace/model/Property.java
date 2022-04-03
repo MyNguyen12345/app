@@ -1,23 +1,26 @@
 package com.cnpm.workingspace.model;
 
 import javax.persistence.*;
-import java.time.Instant;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "property")
-public class Property {
+public class Property implements Serializable {
+    private static final long serialVersionUID = 8024425894957681666L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "property_id", nullable = false)
     private Integer propertyId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+
+    @ManyToOne(optional = false)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "property_type_id", nullable = false)
     private PropertyType propertyType;
 
@@ -31,7 +34,7 @@ public class Property {
     private Integer roomQuantity;
 
     @Column(name = "createDate", nullable = false)
-    private Instant createDate;
+    private LocalDateTime createDate;
 
     @Lob
     @Column(name = "description")
@@ -54,7 +57,7 @@ public class Property {
                     String propertyName,
                     String address,
                     Integer roomQuantity,
-                    Instant createDate,
+                    LocalDateTime createDate,
                     String description,
                     Double rating,
                     String image) {
@@ -101,11 +104,11 @@ public class Property {
         this.description = description;
     }
 
-    public Instant getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Instant createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
 
