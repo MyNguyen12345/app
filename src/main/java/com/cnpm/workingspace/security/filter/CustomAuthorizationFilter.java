@@ -18,7 +18,6 @@ import java.io.IOException;
 import static java.util.Collections.emptyList;
 
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
-
     private JwtUtils jwtUtils;
 
     private ObjectMapper mapper = new ObjectMapper();
@@ -62,8 +61,9 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(null);
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 response.setContentType("json/application");
-                response.getWriter().write(mapper.writeValueAsString(new ErrorResponse(ErrorCode.INCORRECT_TOKEN, null)));
-                System.out.println("error in incorrect token : " + e.getMessage());
+                response.getWriter().write(mapper.writeValueAsString(new ErrorResponse(ErrorCode.INCORRECT_TOKEN,null)));
+                System.out.println("error in incorrect token : "+e.getMessage());
+                e.printStackTrace();
                 return;
             }
         } else {

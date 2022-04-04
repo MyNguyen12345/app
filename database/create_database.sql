@@ -1,5 +1,5 @@
-DROP SCHEMA IF EXISTS `workingspace`;
+DROP SCHEMA IF EXISTS `working_space`;
 
-CREATE SCHEMA `workingspace`;
+CREATE SCHEMA `working_space`;
 
-USE `workingspace`;
+USE `working_space`;
