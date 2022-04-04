@@ -1,11 +1,9 @@
 package com.cnpm.workingspace.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 @Entity
-@Table(name="property_type")
+@Table(name = "property_type")
 public class PropertyType {
     @Id
     @Column(name = "property_type_id")

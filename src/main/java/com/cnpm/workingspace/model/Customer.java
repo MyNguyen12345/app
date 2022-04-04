@@ -1,12 +1,16 @@
 package com.cnpm.workingspace.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name="customer")
+@Table(name = "customer")
+@Getter
+@Setter
 public class Customer {
     @JsonIgnore
     @Id
@@ -23,87 +27,20 @@ public class Customer {
     @Column(name = "customer_name")
     private String customerName;
     @Column(name = "citizen_id")
-    private String citizenId;
+    private String citizenId = "1";
     @Column(name = "birthday")
-    private Date birthday;
+    private Date birthday = new Date();
     @Column(name = "nationality")
-    private String nationality;
+    private String nationality = "VietNam";
     @Column(name = "phone_number")
     private String phoneNumber;
 
     public Customer() {
     }
 
-    public Customer(String email, String customerName, String citizenId, Date birthday, String nationality, String phoneNumber) {
+    public Customer(String email, String customerName, String phoneNumber) {
         this.email = email;
         this.customerName = customerName;
-        this.citizenId = citizenId;
-        this.birthday = birthday;
-        this.nationality = nationality;
-        this.phoneNumber = phoneNumber;
-    }
-
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public String getCitizenId() {
-        return citizenId;
-    }
-
-    public void setCitizenId(String citizenId) {
-        this.citizenId = citizenId;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
-    public String getNationality() {
-        return nationality;
-    }
-
-    public void setNationality(String nationality) {
-        this.nationality = nationality;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 }
