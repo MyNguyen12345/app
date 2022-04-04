@@ -36,17 +36,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity security) throws Exception {
         security.csrf().disable()
-                .authorizeRequests().antMatchers("/api/auth/*").permitAll()
-                .anyRequest().authenticated();
-//        security
-//                .exceptionHandling()
-//                .authenticationEntryPoint((request, response, e) -> {
-//                    response.setStatus(HttpStatus.UNAUTHORIZED.value());
-//                    response.setContentType("application/json");
-//                    response.getWriter().write("{ \"error\": \"You are not authenticated.\" }");
-//                });
-        security.addFilter(new CustomAuthenticationFilter(authenticationManager()));
-        security.addFilterBefore(new CustomAuthorizationFilter(jwtUtils),UsernamePasswordAuthenticationFilter.class);
+                .authorizeRequests().anyRequest().permitAll();
+//        security.csrf().disable()
+//                .authorizeRequests().antMatchers("/api/auth/*").permitAll()
+//                .anyRequest().authenticated();
+//        security.addFilter(new CustomAuthenticationFilter(authenticationManager()));
+//        security.addFilterBefore(new CustomAuthorizationFilter(jwtUtils),UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
