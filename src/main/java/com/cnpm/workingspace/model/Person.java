@@ -1,11 +1,9 @@
 package com.cnpm.workingspace.model;
 
-import lombok.*;
-
 import javax.persistence.*;
 
 @Entity
-@Table(name="Persons")
+@Table(name = "Persons")
 public class Person {
     @Id
     @Column(name = "PersonID")
@@ -71,8 +69,8 @@ public class Person {
         this.city = city;
     }
 
-    public String getName(){
-        return firstName+" "+lastName;
+    public String getName() {
+        return firstName + " " + lastName;
     }
 
     @Override
