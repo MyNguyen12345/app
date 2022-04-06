@@ -20,4 +20,5 @@ public interface RoomServiceRepository extends JpaRepository<RoomService, Intege
     Integer testQuery(
             @Param("number") Integer number
     );
+
 }

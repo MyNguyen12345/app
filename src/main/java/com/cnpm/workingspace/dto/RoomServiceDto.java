@@ -1,28 +1,21 @@
-package com.cnpm.workingspace.model;
+package com.cnpm.workingspace.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
-
-@Entity
-@Table(name="room_service")
-public class RoomService {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "room_service_id", nullable = false)
+public class RoomServiceDto {
     private int roomServiceId;
-    @JsonIgnore
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "room_id", nullable = false)
-    private Room room;
-    @Column(name = "room_service_name")
+    private int roomId;
     private String roomServiceName;
-    @Column(name = "quantity_available")
     private int quantityAvailable;
-    @Column(name = "price")
     private double price;
 
-    public RoomService() {
+    public RoomServiceDto() {
+    }
+
+    public RoomServiceDto(int roomServiceId, int roomId, String roomServiceName, int quantityAvailable, double price) {
+        this.roomServiceId = roomServiceId;
+        this.roomId = roomId;
+        this.roomServiceName = roomServiceName;
+        this.quantityAvailable = quantityAvailable;
+        this.price = price;
     }
 
     public int getRoomServiceId() {
@@ -33,12 +26,12 @@ public class RoomService {
         this.roomServiceId = roomServiceId;
     }
 
-    public Room getRoom() {
-        return room;
+    public int getRoomId() {
+        return roomId;
     }
 
-    public void setRoom(Room room) {
-        this.room = room;
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
     }
 
     public String getRoomServiceName() {
