@@ -25,7 +25,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
 
     private JwtUtils jwtUtils;
 
-    private ObjectMapper mapper=new ObjectMapper();
+    private ObjectMapper mapper = new ObjectMapper();
 
     public CustomAuthorizationFilter(JwtUtils jwtUtils) {
         this.jwtUtils = jwtUtils;
