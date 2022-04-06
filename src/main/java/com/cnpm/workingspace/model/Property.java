@@ -1,164 +1,175 @@
 package com.cnpm.workingspace.model;
 
-import java.time.LocalDate;
-
 import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name="property")
-public class Property {
+@Table(name = "property")
+public class Property implements Serializable {
+    private static final long serialVersionUID = 8024425894957681666L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "property_id", nullable = false)
+    private Integer propertyId;
 
-	@Id
-	@Column(name="property_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int propertyId;
-	
-	@Column(name="customer_id")
-	private int customerId;
 
-	@ManyToOne()
-	@JoinColumn(name="property_type_id", referencedColumnName = "property_type_id")
-	private PropertyType propertyType;
-	
-	@Column(name="property_name")
-	private String propertyName;
-	
-	@Column(name="address")
-	private String address;
-	
-	@Column(name="room_quantity")
-	private int roomQuantity;
-	
-	@Column(name="createDate")
-	private LocalDate createDate;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
 
-	@Column(name="description")
-	private String description;
-	
-	@Column(name="rating")
-	private Double rating;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "property_type_id", nullable = false)
+    private PropertyType propertyType;
 
-	@Column(name="lat")
-	private Double lat;
+    @Column(name = "property_name", nullable = false)
+    private String propertyName;
 
-	@Column(name="lon")
-	private Double lon;
-	
-	@Column(name="image")
-	private String image;
-	
-	public Property() {
-	}
+    @Column(name = "address", nullable = false)
+    private String address;
 
-	public Property(int customerId, PropertyType propertyType, String propertyName, String address,
-			int roomQuantity, LocalDate createDate, String description, Double rating, Double lat, Double lon,
-			String image) {
-		this.customerId = customerId;
-		this.propertyType = propertyType;
-		this.propertyName = propertyName;
-		this.address = address;
-		this.roomQuantity = roomQuantity;
-		this.createDate = createDate;
-		this.description = description;
-		this.rating = rating;
-		this.lat = lat;
-		this.lon = lon;
-		this.image = image;
-	}
+    @Column(name = "room_quantity", nullable = false)
+    private Integer roomQuantity;
 
-	public int getPropertyId() {
-		return propertyId;
-	}
+    @Column(name = "createDate", nullable = false)
+    private LocalDateTime createDate;
 
-	public void setPropertyId(int propertyId) {
-		this.propertyId = propertyId;
-	}
+    @Lob
+    @Column(name = "description")
+    private String description;
 
-	public int getCustomerId() {
-		return customerId;
-	}
+    @Column(name = "rating")
+    private Double rating;
 
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
-	}
+    @Column(name = "image")
+    private String image;
 
-	public PropertyType getPropertyType() {
-		return propertyType;
-	}
+    @OneToMany(mappedBy = "property")
+    private List<Room> rooms = new ArrayList<>();
 
-	public void setPropertyType(PropertyType propertyType) {
-		this.propertyType = propertyType;
-	}
+    public Property() {
+    }
 
-	public String getPropertyName() {
-		return propertyName;
-	}
+    public Property(Customer customer,
+                    PropertyType propertyType,
+                    String propertyName,
+                    String address,
+                    Integer roomQuantity,
+                    LocalDateTime createDate,
+                    String description,
+                    Double rating,
+                    String image) {
+        this.customer = customer;
+        this.propertyType = propertyType;
+        this.propertyName = propertyName;
+        this.address = address;
+        this.roomQuantity = roomQuantity;
+        this.createDate = createDate;
+        this.description = description;
+        this.rating = rating;
+        this.image = image;
+    }
 
-	public void setPropertyName(String propertyName) {
-		this.propertyName = propertyName;
-	}
+    public List<Room> getRooms() {
+        return rooms;
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public String getImage() {
+        return image;
+    }
 
-	public int getRoomQuantity() {
-		return roomQuantity;
-	}
+    public void setImage(String image) {
+        this.image = image;
+    }
 
-	public void setRoomQuantity(int roomQuantity) {
-		this.roomQuantity = roomQuantity;
-	}
+    public Double getRating() {
+        return rating;
+    }
 
-	public LocalDate getCreateDate() {
-		return createDate;
-	}
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
 
-	public void setCreateDate(LocalDate createDate) {
-		this.createDate = createDate;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
 
-	public Double getRating() {
-		return rating;
-	}
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
+    }
 
-	public void setRating(Double rating) {
-		this.rating = rating;
-	}
+    public Integer getRoomQuantity() {
+        return roomQuantity;
+    }
 
-	public Double getLat() {
-		return lat;
-	}
+    public void setRoomQuantity(Integer roomQuantity) {
+        this.roomQuantity = roomQuantity;
+    }
 
-	public void setLat(Double lat) {
-		this.lat = lat;
-	}
+    public String getAddress() {
+        return address;
+    }
 
-	public Double getLon() {
-		return lon;
-	}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	public void setLon(Double lon) {this.lon = lon;}
+    public String getPropertyName() {
+        return propertyName;
+    }
 
-	public String getImage() {
-		return image;
-	}
+    public void setPropertyName(String propertyName) {
+        this.propertyName = propertyName;
+    }
 
-	public void setImage(String image) {
-		this.image = image;
-	}
-	
-	
+    public PropertyType getPropertyType() {
+        return propertyType;
+    }
+
+    public void setPropertyType(PropertyType propertyType) {
+        this.propertyType = propertyType;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Integer getPropertyId() {
+        return propertyId;
+    }
+
+    public void setPropertyId(Integer id) {
+        this.propertyId = id;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+               "propertyId = " + propertyId + ", " +
+               "propertyName = " + propertyName + ", " +
+               "address = " + address + ", " +
+               "roomQuantity = " + roomQuantity + ", " +
+               "createDate = " + createDate + ", " +
+               "description = " + description + ", " +
+               "rating = " + rating + ", " +
+               "image = " + image + ")";
+    }
 }

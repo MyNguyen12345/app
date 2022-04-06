@@ -20,9 +20,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+<<<<<<< HEAD
 import java.util.Date;
 import java.util.List;
 
+=======
+>>>>>>> 0e6eb38d636ae2ef71bdf9c7071f42b5aef58659
 @RestController
 @RequestMapping("/api/auth/")
 public class AuthController {
@@ -69,6 +72,10 @@ public class AuthController {
         System.out.println("not exists");
         Customer customer = customerAccount.getCustomer();
         customer.setAccount(account);
+<<<<<<< HEAD
+=======
+        account.setCustomer(customer);
+>>>>>>> 0e6eb38d636ae2ef71bdf9c7071f42b5aef58659
         try {
             int status = customerService.insertCustomer(customer);
             if (status == 1) return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, null), HttpStatus.OK);
@@ -84,18 +91,18 @@ public class AuthController {
         Customer customer = new Customer(
                 "tranvantri2000@gmail.com",
                 "tri tran",
-                "201818010",
-                new Date(),
-                "Viet Nam",
                 "0762802837"
         );
         customer.setAccount(account);
         return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, customer), HttpStatus.OK);
+<<<<<<< HEAD
     }
 
     @GetMapping("getAll")
     public ResponseEntity<?> getAllCustomer() {
         List<Customer> getAll = customerService.getAll();
         return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, getAll), HttpStatus.OK);
+=======
+>>>>>>> 0e6eb38d636ae2ef71bdf9c7071f42b5aef58659
     }
 }

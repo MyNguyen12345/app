@@ -21,23 +21,19 @@ public class PropertyTypeController {
     private PropertyTypeService propertyTypeService;
 
     @GetMapping(value = "property_type/{id}")
-    public ResponseEntity<PropertyType> getPropertyType(@PathVariable(value = "id") int id){
+    public ResponseEntity<?> getPropertyType(@PathVariable(value = "id") int id){
         Optional<PropertyType> propertyType=propertyTypeService.getPropertyTypeById(id);
         if(propertyType.isPresent()){
-            return new ResponseEntity<PropertyType>(propertyType.get(),HttpStatus.OK);
+            return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS,propertyType.get()),HttpStatus.OK);
         } else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new ErrorResponse(ErrorCode.NOT_FOUND,null),HttpStatus.OK);
         }
     }
 
     @GetMapping(value = "property_types")
-    public ResponseEntity<List<PropertyType>> getAllPropertyTypes(){
+    public ResponseEntity<?> getAllPropertyTypes(){
         List<PropertyType> propertyTypes=propertyTypeService.getAllPropertyType();
-        if(propertyTypes.size()>0){
-            return new ResponseEntity<List<PropertyType>>(propertyTypes,HttpStatus.OK);
-        } else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS,propertyTypes),HttpStatus.OK);
     }
 
     @PostMapping(value = "property_type")
@@ -48,7 +44,7 @@ public class PropertyTypeController {
             propertyTypeService.insertPropertyType(propertyType);
             return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS,null),HttpStatus.OK);
         } catch (Exception e){
-            return new ResponseEntity<>(new ErrorResponse(ErrorCode.ERROR,e.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(ErrorCode.ERROR,e.getMessage()),HttpStatus.OK);
         }
     }
 
@@ -59,10 +55,10 @@ public class PropertyTypeController {
             if(status){
                 return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS,null),HttpStatus.OK);
             } else{
-                return new ResponseEntity<>(new ErrorResponse(ErrorCode.NOT_FOUND,null),HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(new ErrorResponse(ErrorCode.NOT_FOUND,null),HttpStatus.OK);
             }
         } catch (Exception e){
-            return new ResponseEntity<>(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR,e.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR,e.getMessage()),HttpStatus.OK);
         }
     }
 
@@ -72,7 +68,7 @@ public class PropertyTypeController {
             propertyTypeService.deletePropertyType(id);
             return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS,null),HttpStatus.OK);
         } catch (Exception e){
-            return new ResponseEntity<>(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR,e.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR,e.getMessage()),HttpStatus.OK);
         }
     }
 }
