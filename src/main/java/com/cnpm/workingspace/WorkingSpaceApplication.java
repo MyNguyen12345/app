@@ -1,10 +1,7 @@
 package com.cnpm.workingspace;
 
 import com.cnpm.workingspace.security.jwt.JwtUtils;
-import com.cnpm.workingspace.service.AccountService;
-import com.cnpm.workingspace.service.CustomerService;
-import com.cnpm.workingspace.service.PriceService;
-import com.cnpm.workingspace.service.PropertyService;
+import com.cnpm.workingspace.service.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -32,6 +29,9 @@ public class WorkingSpaceApplication implements CommandLineRunner {
 	
 	@Autowired
 	PropertyService propertyService;
+
+	@Autowired
+	ReservationStatusService reservationStatusService;
 
 	@Override
 	public void run(String... args) throws Exception {
