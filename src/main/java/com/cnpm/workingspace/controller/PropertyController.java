@@ -22,7 +22,7 @@ public class PropertyController {
     public ResponseEntity<ErrorResponse> getProperty(@PathVariable int id) {
         Optional<Property> property = propertyService.getPropertyById(id);
         return property.map(value -> new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, value), HttpStatus.OK))
-                       .orElseGet(() -> new ResponseEntity<>(new ErrorResponse(ErrorCode.NOT_FOUND, null), HttpStatus.OK));
+                .orElseGet(() -> new ResponseEntity<>(new ErrorResponse(ErrorCode.NOT_FOUND, null), HttpStatus.OK));
     }
 
     @GetMapping("/properties")
@@ -33,8 +33,8 @@ public class PropertyController {
 
     @PostMapping("/property")
     public ResponseEntity<ErrorResponse> insertProperty(@RequestBody Property property) {
-            propertyService.insertProperty(property);
-            return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, null), HttpStatus.OK);
+        propertyService.insertProperty(property);
+        return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, null), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")

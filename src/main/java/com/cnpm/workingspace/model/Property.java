@@ -30,11 +30,11 @@ public class Property implements Serializable {
     @Column(name = "address", nullable = false)
     private String address;
 
+    @Column(name = "city", nullable = false)
+    private String city;
+
     @Column(name = "room_quantity", nullable = false)
     private Integer roomQuantity;
-
-    @Column(name = "createDate", nullable = false)
-    private LocalDateTime createDate;
 
     @Lob
     @Column(name = "description")
@@ -57,7 +57,6 @@ public class Property implements Serializable {
                     String propertyName,
                     String address,
                     Integer roomQuantity,
-                    LocalDateTime createDate,
                     String description,
                     Double rating,
                     String image) {
@@ -66,7 +65,6 @@ public class Property implements Serializable {
         this.propertyName = propertyName;
         this.address = address;
         this.roomQuantity = roomQuantity;
-        this.createDate = createDate;
         this.description = description;
         this.rating = rating;
         this.image = image;
@@ -100,21 +98,9 @@ public class Property implements Serializable {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public void setDescription(String description) {this.description = description;}
 
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }
-
-    public Integer getRoomQuantity() {
-        return roomQuantity;
-    }
+    public Integer getRoomQuantity() {return roomQuantity;}
 
     public void setRoomQuantity(Integer roomQuantity) {
         this.roomQuantity = roomQuantity;
@@ -126,6 +112,14 @@ public class Property implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getPropertyName() {
@@ -167,7 +161,6 @@ public class Property implements Serializable {
                "propertyName = " + propertyName + ", " +
                "address = " + address + ", " +
                "roomQuantity = " + roomQuantity + ", " +
-               "createDate = " + createDate + ", " +
                "description = " + description + ", " +
                "rating = " + rating + ", " +
                "image = " + image + ")";

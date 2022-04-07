@@ -3,6 +3,9 @@ package com.cnpm.workingspace.service;
 import com.cnpm.workingspace.model.Account;
 import com.cnpm.workingspace.model.Customer;
 import com.cnpm.workingspace.repository.CustomerRepository;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,4 +27,10 @@ public class CustomerServiceImp implements CustomerService{
         }
         return 1;
     }
+    
+    @Override
+    public List<Customer> getAll() {
+    	return customerRepository.findAll();
+    }
+    
 }
