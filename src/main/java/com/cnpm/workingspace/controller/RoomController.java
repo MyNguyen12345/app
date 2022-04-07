@@ -1,6 +1,7 @@
 package com.cnpm.workingspace.controller;
 
 import com.cnpm.workingspace.constants.ErrorCode;
+import com.cnpm.workingspace.dto.RoomDto;
 import com.cnpm.workingspace.model.Room;
 import com.cnpm.workingspace.security.response.ErrorResponse;
 import com.cnpm.workingspace.service.RoomService;
@@ -13,33 +14,32 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/room")
+@RequestMapping("/api/rooms")
 public class RoomController {
     @Autowired
     private RoomService RoomService;
 
     @GetMapping("/{id}")
     public ResponseEntity<ErrorResponse> getRoom(@PathVariable int id) {
-        Optional<Room> Room = RoomService.getRoomById(id);
-        return Room.map(value -> new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, value), HttpStatus.OK))
-                   .orElseGet(() -> new ResponseEntity<>(new ErrorResponse(ErrorCode.NOT_FOUND, null), HttpStatus.OK));
+        RoomDto roomDto = RoomService.getRoomById(id);
+        return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, roomDto), HttpStatus.OK);
     }
 
-    @GetMapping("/rooms")
+    @GetMapping()
     public ResponseEntity<ErrorResponse> getAllRoom() {
-        List<Room> properties = RoomService.getAllRoom();
-        return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, properties), HttpStatus.OK);
+        List<RoomDto> rooms = RoomService.getAllRoom();
+        return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, rooms), HttpStatus.OK);
     }
 
-    @PostMapping("/room")
-    public ResponseEntity<ErrorResponse> insertRoom(@RequestBody Room Room) {
-        RoomService.insertRoom(Room);
+    @PostMapping()
+    public ResponseEntity<ErrorResponse> insertRoom(@RequestBody RoomDto roomDto) {
+        RoomService.insertRoom(roomDto);
         return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, null), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ErrorResponse> updateRoom(@PathVariable int id, @RequestBody Room Room) {
-        if (RoomService.updateRoom(Room, id)) {
+    public ResponseEntity<ErrorResponse> updateRoom(@PathVariable int id, @RequestBody RoomDto roomDto) {
+        if (RoomService.updateRoom(roomDto, id)) {
             return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, null), HttpStatus.OK);
         }
         return new ResponseEntity<>(new ErrorResponse(ErrorCode.NOT_FOUND, null), HttpStatus.OK);
@@ -49,10 +49,5 @@ public class RoomController {
     public ResponseEntity<ErrorResponse> deleteRoom(@PathVariable int id) {
         RoomService.deleteRoom(id);
         return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, null), HttpStatus.OK);
-    }
-
-    @ExceptionHandler
-    public ResponseEntity<ErrorResponse> handleException(IllegalArgumentException e) {
-        return new ResponseEntity<>(new ErrorResponse(ErrorCode.NOT_FOUND, e.getMessage()), HttpStatus.OK);
     }
 }

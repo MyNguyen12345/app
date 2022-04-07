@@ -1,26 +1,21 @@
 package com.cnpm.workingspace.model;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "property")
-public class Property implements Serializable {
-    private static final long serialVersionUID = 8024425894957681666L;
+public class Property {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "property_id", nullable = false)
     private Integer propertyId;
 
-
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "property_type_id", nullable = false)
     private PropertyType propertyType;
 
@@ -30,11 +25,14 @@ public class Property implements Serializable {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "city", nullable = false)
+    @Column(name = "city")
     private String city;
 
     @Column(name = "room_quantity", nullable = false)
     private Integer roomQuantity;
+
+    @Column(name = "create_date", nullable = false)
+    private LocalDateTime createDate;
 
     @Lob
     @Column(name = "description")
@@ -46,8 +44,11 @@ public class Property implements Serializable {
     @Column(name = "image")
     private String image;
 
-    @OneToMany(mappedBy = "property")
-    private List<Room> rooms = new ArrayList<>();
+    @Column(name = "lat")
+    private Double lat;
+
+    @Column(name = "lon")
+    private Double lon;
 
     public Property() {
     }
@@ -56,26 +57,39 @@ public class Property implements Serializable {
                     PropertyType propertyType,
                     String propertyName,
                     String address,
+                    String city,
                     Integer roomQuantity,
+                    LocalDateTime createDate,
                     String description,
-                    Double rating,
-                    String image) {
+                    Double rating, String image, Double lat, Double lon) {
         this.customer = customer;
         this.propertyType = propertyType;
         this.propertyName = propertyName;
         this.address = address;
+        this.city = city;
         this.roomQuantity = roomQuantity;
+        this.createDate = createDate;
         this.description = description;
         this.rating = rating;
         this.image = image;
+        this.lat = lat;
+        this.lon = lon;
     }
 
-    public List<Room> getRooms() {
-        return rooms;
+    public Double getLon() {
+        return lon;
     }
 
-    public void setRooms(List<Room> rooms) {
-        this.rooms = rooms;
+    public void setLon(Double lon) {
+        this.lon = lon;
+    }
+
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
     }
 
     public String getImage() {
@@ -98,20 +112,24 @@ public class Property implements Serializable {
         return description;
     }
 
-    public void setDescription(String description) {this.description = description;}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-    public Integer getRoomQuantity() {return roomQuantity;}
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
+    }
+
+    public Integer getRoomQuantity() {
+        return roomQuantity;
+    }
 
     public void setRoomQuantity(Integer roomQuantity) {
         this.roomQuantity = roomQuantity;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getCity() {
@@ -120,6 +138,14 @@ public class Property implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getPropertyName() {
@@ -157,12 +183,16 @@ public class Property implements Serializable {
     @Override
     public String toString() {
         return getClass().getSimpleName() + "(" +
-               "propertyId = " + propertyId + ", " +
+               "id = " + propertyId + ", " +
                "propertyName = " + propertyName + ", " +
                "address = " + address + ", " +
+               "city = " + city + ", " +
                "roomQuantity = " + roomQuantity + ", " +
+               "createDate = " + createDate + ", " +
                "description = " + description + ", " +
                "rating = " + rating + ", " +
-               "image = " + image + ")";
+               "image = " + image + ", " +
+               "lat = " + lat + ", " +
+               "lon = " + lon + ")";
     }
 }

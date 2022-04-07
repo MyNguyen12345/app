@@ -82,7 +82,3 @@ VALUES (1, 1, "Tommaso da Cazzaniga - Milano", "775 Ton Duc Thang, Lien Chieu", 
 		5, 12.12512, 106.12121, "https://media.vneconomy.vn/images/upload/2021/04/21/presidentbedroom2-15510687199461893035392.jpg"),
         (4, 3, "CIMATORI 10", "775 Ton Duc Thang, Lien Chieu", "Hue", 10, "Dep - Sach - Thoang mat", 
 		5, 12.12512, 106.12121, "https://media.vov.vn/uploaded/cizotokek8ly8uzveukg/2016_05_21/4_mpfe.jpg");
-
-SELECT * FROM reservation;
-
-		

@@ -3,7 +3,6 @@ package com.cnpm.workingspace.controller;
 import com.cnpm.workingspace.adapter.RoomServiceAdapter;
 import com.cnpm.workingspace.constants.ErrorCode;
 import com.cnpm.workingspace.dto.RoomServiceDto;
-import com.cnpm.workingspace.model.Room;
 import com.cnpm.workingspace.model.RoomService;
 import com.cnpm.workingspace.security.response.ErrorResponse;
 import com.cnpm.workingspace.service.RoomServiceService;

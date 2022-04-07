@@ -21,17 +21,17 @@ public class RoomServiceAdapter {
     }
 
     public static RoomService toRoomService(RoomServiceDto roomServiceDto){
-        Optional<Room> roomOptional=roomService.getRoomById(roomServiceDto.getRoomId());
-        if(roomOptional.isPresent()){
-            Room room=roomOptional.get();
-            RoomService roomService=new RoomService();
-            roomService.setRoomServiceId(roomServiceDto.getRoomServiceId());
-            roomService.setRoom(room);
-            roomService.setRoomServiceName(roomServiceDto.getRoomServiceName());
-            roomService.setQuantityAvailable(roomServiceDto.getQuantityAvailable());
-            roomService.setPrice(roomServiceDto.getPrice());
-            return roomService;
-        }
+        // Optional<Room> roomOptional=roomService.getRoomById(roomServiceDto.getRoomId());
+        // if(roomOptional.isPresent()){
+        //     Room room=roomOptional.get();
+        //     RoomService roomService=new RoomService();
+        //     roomService.setRoomServiceId(roomServiceDto.getRoomServiceId());
+        //     roomService.setRoom(room);
+        //     roomService.setRoomServiceName(roomServiceDto.getRoomServiceName());
+        //     roomService.setQuantityAvailable(roomServiceDto.getQuantityAvailable());
+        //     roomService.setPrice(roomServiceDto.getPrice());
+        //     return roomService;
+        // }
         return null;
 
     }

@@ -1,6 +1,5 @@
 package com.cnpm.workingspace.service;
 
-import com.cnpm.workingspace.model.Room;
 import com.cnpm.workingspace.model.RoomService;
 import com.cnpm.workingspace.repository.RoomServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
