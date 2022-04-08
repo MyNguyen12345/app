@@ -1,6 +1,7 @@
 package com.cnpm.workingspace.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.cnpm.workingspace.constants.ErrorCode;
 import com.cnpm.workingspace.security.response.ErrorResponse;
@@ -27,45 +28,44 @@ public class PriceController {
 	@Autowired
 	private PriceService priceService;
 	
-	@GetMapping(value = "/pricee")
+	@GetMapping(value = "")
 	public ResponseEntity<?> getAllPrice(){
         List<Price> prices = priceService.getAll();
         return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, prices),HttpStatus.OK);
     }
 	
-	@PostMapping(value = "/pricee")
-	public ResponseEntity<String> insertPrice(@RequestBody Price price){
-		try {
-			priceService.insertPrice(price);
-			return new ResponseEntity<>("success",HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>("error : "+e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+	@PostMapping(value = "")
+	public ResponseEntity<?> insertPrice(@RequestBody Price price){
+		priceService.insertPrice(price);
+		return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, null), HttpStatus.OK);
+	}
+
+	@PutMapping(value = "/{priceId}")
+	public ResponseEntity<?> updatePrice(@PathVariable int priceId, @RequestBody Price price){
+		boolean status = priceService.updatePrice(price, priceId);
+		if(status){
+				return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, null), HttpStatus.OK);
+		} else{
+				return new ResponseEntity<>(new ErrorResponse(ErrorCode.NOT_FOUND, null), HttpStatus.OK);
 		}
 	}
 
-	@PutMapping(value = "/pricee/{priceId}")
-	public ResponseEntity<String> updatePrice(@PathVariable int priceId, @RequestBody Price price){
-		try{
-			boolean status = priceService.updatePrice(price, priceId);
-			if(status){
-				return new ResponseEntity<>("success",HttpStatus.OK);
-			} else{
-				return new ResponseEntity<>("not found price",HttpStatus.NOT_FOUND);
-			}
-		} catch (Exception e){
-			e.printStackTrace();
-			return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+	@DeleteMapping(value = "/{priceId}")
+	public ResponseEntity<?> deletePrice(@PathVariable int priceId){
+		priceService.deletePrice(priceId);
+		return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, null), HttpStatus.OK);
+	}
+
+	@GetMapping("/{priceId}")
+	public ResponseEntity<?> getPriceById(@PathVariable int priceId){
+		Optional<Price> price = priceService.getPriceById(priceId);
+		if(price.isPresent()) {
+			Price priceGet = price.get();
+			return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, priceGet), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(new ErrorResponse(ErrorCode.NOT_FOUND, null), HttpStatus.OK);
 		}
 	}
-	
-	@DeleteMapping(value = "/pricee/{priceId}")
-	public ResponseEntity<String> deletePrice(@PathVariable int priceId){
-		try{
-			priceService.deletePrice(priceId);
-            return new ResponseEntity<String>("Delete success", HttpStatus.OK);
-        } catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-	}
+
 
 }
