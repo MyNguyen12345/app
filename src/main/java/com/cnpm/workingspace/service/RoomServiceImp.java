@@ -51,9 +51,9 @@ public class RoomServiceImp implements RoomService{
         Converter<Integer, RoomStatus> roomStatusConverter = context -> roomStatusRepository.getById(context.getSource());
         this.toEntityMapper = toEntityMapper;
         this.toEntityMapper.createTypeMap(RoomDto.class, Room.class)
-                .addMappings(mapper -> mapper.map(RoomDto::getPropertyId, Room::setProperty))
-                .addMappings(mapper -> mapper.map(RoomDto::getPriceId, Room::setPrice))
-                .addMappings(mapper -> mapper.map(RoomDto::getRoomStatusId, Room::setRoomStatus));
+                .addMappings(mapper -> mapper.using(propertyConverter).map(RoomDto::getPropertyId, Room::setProperty))
+                .addMappings(mapper -> mapper.using(priceConverter).map(RoomDto::getPriceId, Room::setPrice))
+                .addMappings(mapper -> mapper.using(roomStatusConverter).map(RoomDto::getRoomStatusId, Room::setRoomStatus));
     }
 
     @Override

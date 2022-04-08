@@ -20,6 +20,9 @@ public class RoomServiceController {
     @Autowired
     private RoomServiceService roomServiceService;
 
+    @Autowired
+    private RoomServiceAdapter roomServiceAdapter;
+
     @GetMapping(value = "")
     public ResponseEntity<?> getAllRoomServices(){
         try {
@@ -36,7 +39,7 @@ public class RoomServiceController {
             Optional<RoomService> roomServiceOptional=roomServiceService.getRoomServiceById(id);
             if(roomServiceOptional.isPresent()){
                 RoomService roomService=roomServiceOptional.get();
-                RoomServiceDto roomServiceDto= RoomServiceAdapter.toRoomServiceDto(roomService);
+                RoomServiceDto roomServiceDto= roomServiceAdapter.toRoomServiceDto(roomService);
                 return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS,roomServiceDto),HttpStatus.OK);
             }
             return new ResponseEntity<>(new ErrorResponse(ErrorCode.NOT_FOUND,null),HttpStatus.OK);
@@ -48,7 +51,7 @@ public class RoomServiceController {
     @PostMapping(value = "")
     public ResponseEntity<?> insertRoomService(@RequestBody RoomServiceDto roomServiceDto){
         try{
-            RoomService roomService=RoomServiceAdapter.toRoomService(roomServiceDto);
+            RoomService roomService= roomServiceAdapter.toRoomService(roomServiceDto);
             roomServiceService.insertRoomService(roomService);
             return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS,null),HttpStatus.OK);
         } catch (Exception e){
@@ -62,7 +65,7 @@ public class RoomServiceController {
             Optional<RoomService> roomServiceOptional=roomServiceService.getRoomServiceById(id);
             if(roomServiceOptional.isPresent()){
                 RoomService roomService= roomServiceOptional.get();
-                RoomService newRoomService=RoomServiceAdapter.toRoomService(roomServiceDto);
+                RoomService newRoomService= roomServiceAdapter.toRoomService(roomServiceDto);
                 roomService.setRoom(newRoomService.getRoom());
                 roomService.setRoomServiceName(newRoomService.getRoomServiceName());
                 roomService.setQuantityAvailable(newRoomService.getQuantityAvailable());

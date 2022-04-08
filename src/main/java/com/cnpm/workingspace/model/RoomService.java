@@ -11,14 +11,18 @@ public class RoomService {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "room_service_id", nullable = false)
     private int roomServiceId;
+
     @JsonIgnore
     @ManyToOne(optional = false)
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
+
     @Column(name = "room_service_name")
     private String roomServiceName;
+
     @Column(name = "quantity_available")
     private int quantityAvailable;
+
     @Column(name = "price")
     private double price;
 
