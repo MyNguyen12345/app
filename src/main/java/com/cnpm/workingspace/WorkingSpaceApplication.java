@@ -36,8 +36,6 @@ public class WorkingSpaceApplication implements CommandLineRunner {
 	@Autowired
 	PriceService priceService;
 
-	@Autowired
-	PropertyService propertyService;
     public static void main(String[] args) {
         SpringApplication.run(WorkingSpaceApplication.class, args);
     }
