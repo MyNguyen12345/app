@@ -1,6 +1,10 @@
 package com.cnpm.workingspace.controller;
 
 import com.cnpm.workingspace.constants.ErrorCode;
+<<<<<<< Updated upstream
+=======
+import com.cnpm.workingspace.dto.PropertyDto;
+>>>>>>> Stashed changes
 import com.cnpm.workingspace.model.Property;
 import com.cnpm.workingspace.security.response.ErrorResponse;
 import com.cnpm.workingspace.service.PropertyService;
@@ -51,8 +55,19 @@ public class PropertyController {
         return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, null), HttpStatus.OK);
     }
 
+<<<<<<< Updated upstream
     @ExceptionHandler
     public ResponseEntity<ErrorResponse> handleException(IllegalArgumentException e) {
         return new ResponseEntity<>(new ErrorResponse(ErrorCode.NOT_FOUND, e.getMessage()), HttpStatus.OK);
     }
+=======
+    @GetMapping("/getByCity")
+    @ResponseBody
+    public ResponseEntity<ErrorResponse> getPropertyByCity(@RequestParam String city){
+        List<Property> properties = propertyService.getPropertyByCity(city);
+        return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, properties), HttpStatus.OK);
+    }
+
+
+>>>>>>> Stashed changes
 }

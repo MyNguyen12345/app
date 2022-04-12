@@ -21,6 +21,7 @@ public class WorkingSpaceApplication implements CommandLineRunner {
 	@Autowired
 	CustomerService customerService;
 
+<<<<<<< Updated upstream
 	@Autowired
 	AccountService accountService;
 	
@@ -29,6 +30,11 @@ public class WorkingSpaceApplication implements CommandLineRunner {
 	
 	@Autowired
 	PropertyService propertyService;
+=======
+    public static void main(String[] args) {
+        SpringApplication.run(WorkingSpaceApplication.class, args);
+    }
+>>>>>>> Stashed changes
 
 	@Autowired
 	ReservationStatusService reservationStatusService;

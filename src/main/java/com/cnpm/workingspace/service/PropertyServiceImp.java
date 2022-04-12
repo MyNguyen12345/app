@@ -43,4 +43,9 @@ public class PropertyServiceImp implements PropertyService{
     public Optional<Property> getPropertyById(int id) {
         return propertyRepository.findById(id);
     }
+
+    @Override
+    public List<Property> getPropertyByCity(String city) {
+        return propertyRepository.getPropertyByCity(city);
+    }
 }

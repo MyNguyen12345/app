@@ -16,4 +16,6 @@ public interface PriceService {
     void deletePrice(int id);
     
     Optional<Price> getPriceById(int id);
+
+    List<Price> getByOrder(String nameCol, String sort);
 }
