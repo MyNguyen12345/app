@@ -1,12 +1,10 @@
 package com.cnpm.workingspace.model;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "room")
-public class Room implements Serializable {
-    private static final long serialVersionUID = 5292233737461833580L;
+public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "room_id", nullable = false)
@@ -48,7 +46,9 @@ public class Room implements Serializable {
                 RoomStatus roomStatus,
                 String roomName,
                 String size,
-                String capacity, String image, String description) {
+                String capacity,
+                String image,
+                String description) {
         this.property = property;
         this.price = price;
         this.roomStatus = roomStatus;

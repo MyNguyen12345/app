@@ -15,11 +15,11 @@ public class Reservation {
 
     @OneToOne(optional = false)
     @JoinColumn(name="room_id", nullable = false)
-    private Room roomId;
+    private Room room;
 
     @OneToOne(optional = false)
     @JoinColumn(name="customer_id", nullable = false)
-    private Customer customerId;
+    private Customer customer;
 
     @Column(name="create_date")
     private Date createDate;
@@ -45,11 +45,11 @@ public class Reservation {
 
     public Reservation(){}
 
-    public Reservation(int reservationId, Room roomId, Customer customerId, Date createDate, Date startDate,
+    public Reservation(int reservationId, Room room, Customer customer, Date createDate, Date startDate,
                        Date endDate, int quantity, ReservationStatus reservationStatus, Double total, Double deposit) {
         this.reservationId = reservationId;
-        this.roomId = roomId;
-        this.customerId = customerId;
+        this.room = room;
+        this.customer = customer;
         this.createDate = createDate;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -67,20 +67,20 @@ public class Reservation {
         this.reservationId = reservationId;
     }
 
-    public Room getRoomId() {
-        return roomId;
+    public Room getRoom() {
+        return room;
     }
 
-    public void setRoomId(Room roomId) {
-        this.roomId = roomId;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
-    public Customer getCustomerId() {
-        return customerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerId(Customer customerId) {
-        this.customerId = customerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public Date getCreateDate() {

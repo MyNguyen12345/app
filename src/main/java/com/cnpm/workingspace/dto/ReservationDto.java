@@ -1,8 +1,15 @@
 package com.cnpm.workingspace.dto;
 
+import lombok.*;
+
 import java.io.Serializable;
 import java.util.Date;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class ReservationDto implements Serializable {
     private int reservationId;
     private int roomId;

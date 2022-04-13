@@ -1,6 +1,5 @@
 package com.cnpm.workingspace.service;
 
-import com.cnpm.workingspace.model.Room;
 import com.cnpm.workingspace.model.RoomService;
 import java.util.List;
 import java.util.Optional;

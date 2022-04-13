@@ -3,8 +3,8 @@ package com.cnpm.workingspace.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.cnpm.workingspace.dao.PriceDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.cnpm.workingspace.model.Price;
@@ -24,6 +24,13 @@ public class PriceServiceImpl implements PriceService {
 	@Override
 	public void insertPrice(Price price) {
 		priceRepository.save(price);
+	}
+
+	private PriceDao priceDao;
+
+	@Autowired
+	PriceServiceImpl(PriceDao priceDao){
+		this.priceDao = priceDao;
 	}
 
 	@Override
@@ -54,9 +61,7 @@ public class PriceServiceImpl implements PriceService {
 	}
 
 	@Override
-	public List<Price> getByOrder(String nameCol, String sort) {
-		System.out.println(nameCol);
-		System.out.println(sort);
-		return priceRepository.findAll(Sort.by(Sort.Direction.valueOf(sort), nameCol));
+	public List<Price> getPriceOrder(String nameCol, String sort) {
+		return priceDao.getPriceOrder(nameCol, sort);
 	}
 }

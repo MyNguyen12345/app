@@ -19,12 +19,12 @@ VALUES ("Nha nghi", "https://cdn.vntrip.vn/cam-nang/wp-content/uploads/2019/05/8
        
 
 INSERT INTO property(customer_id, property_type_id, property_name,
-					 address, city, room_quantity, description, rating, lat, lon, image)
+					 address, city, create_date, room_quantity, description, rating, lat, lon, image)
 VALUES (1, 1, "Tommaso da Cazzaniga - Milano", "775 Ton Duc Thang, Lien Chieu", "Da Nang", 10, "Dep - Sach - Thoang mat", 
 		5, 12.12512, 106.12121, "https://wolverineair.com/wp-content/uploads/2020/05/nha-nghi-da-nang-avt.jpg"),
 	   (2, 1, "Tommaso da Cazzaniga - Milano", "775 Ton Duc Thang, Lien Chieu", "Quang Tri", 10, "Dep - Sach - Thoang mat", 
 		5, 12.12512, 106.12121, "https://images.foody.vn/res/g14/134072/prof/s576x330/foody-mobile-c2-jpg-560-636113515152627801.jpg"),
-        (3, 1, "Tommaso da Cazzaniga - Milano", "775 Ton Duc Thang, Lien Chieu", "Quang Tri", 10, "Da Nang", "Dep - Sach - Thoang mat", 
+        (3, 1, "Tommaso da Cazzaniga - Milano", "775 Ton Duc Thang, Lien Chieu", "Quang Tri", 10, "Dep - Sach - Thoang mat", 
 		5, 12.12512, 106.12121, "https://images.foody.vn/res/g11/108834/prof/s576x330/foody-mobile-m-sao-dem-m-jpg-309-635572639534201402.jpg"),
         (4, 1, "Tommaso da Cazzaniga - Milano", "775 Ton Duc Thang, Lien Chieu", "Hue", 10, "Dep - Sach - Thoang mat", 
 		5, 12.12512, 106.12121, "https://images.foody.vn/res/g28/279570/prof/s576x330/foody-mobile-710-jpg-726-636105094361238469.jpg"),
@@ -82,7 +82,16 @@ VALUES (1, 1, "Tommaso da Cazzaniga - Milano", "775 Ton Duc Thang, Lien Chieu", 
 		5, 12.12512, 106.12121, "https://media.vneconomy.vn/images/upload/2021/04/21/presidentbedroom2-15510687199461893035392.jpg"),
         (4, 3, "CIMATORI 10", "775 Ton Duc Thang, Lien Chieu", "Hue", 10, "Dep - Sach - Thoang mat", 
 		5, 12.12512, 106.12121, "https://media.vov.vn/uploaded/cizotokek8ly8uzveukg/2016_05_21/4_mpfe.jpg");
+        
+INSERT INTO price(hour_price, day_price, week_price, month_price)
+VALUES (123.12412, 123123.123123, 123.12312, 12312.12312),
+	   (1326.12412, 2323.123123, 216.12312, 347.12312),
+       (458.12412, 3833.123123, 34573.12312, 34734.12312);
+       
+INSERT INTO reservation_status(reservation_status_name)
+VALUES ("ACTIVED"),
+	   ("INACTIVED");
 
-SELECT * FROM reservation;
+SELECT * FROM property;
 
 		

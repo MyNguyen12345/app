@@ -17,5 +17,5 @@ public interface PriceService {
     
     Optional<Price> getPriceById(int id);
 
-    List<Price> getByOrder(String nameCol, String sort);
+    List<Price> getPriceOrder(String nameCol, String sort);
 }

@@ -1,6 +1,7 @@
 package com.cnpm.workingspace.service;
 
 import com.cnpm.workingspace.dto.PropertyDto;
+import com.cnpm.workingspace.dto.ReservationDto;
 import com.cnpm.workingspace.model.Price;
 import com.cnpm.workingspace.model.Reservation;
 
@@ -8,15 +9,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ReservationService {
-    List<PropertyDto> getAllProperty();
+    List<ReservationDto> getAllReservation();
 
-    void insertProperty(PropertyDto propertyDto);
+    void insertReservation(ReservationDto reservationDto);
 
-    boolean updateProperty(PropertyDto propertyDto, int id);
+    boolean updateReservation(ReservationDto reservationDto, int id);
 
-    void deleteProperty(int id);
+    void deleteReservation(int id);
 
-    PropertyDto getPropertyById(int id);
-
-    Optional<Reservation> getPriceById(int id);
+    ReservationDto getReservationById(int id);
 }

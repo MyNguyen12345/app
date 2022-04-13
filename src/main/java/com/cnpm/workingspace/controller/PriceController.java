@@ -42,7 +42,7 @@ public class PriceController {
 				return new ResponseEntity<>(new ErrorResponse(ErrorCode.NOT_FOUND, null), HttpStatus.OK);
 		}
 	}
-	
+
 	@DeleteMapping(value = "/{priceId}")
 	public ResponseEntity<?> deletePrice(@PathVariable int priceId){
 		priceService.deletePrice(priceId);
@@ -63,10 +63,7 @@ public class PriceController {
 	@GetMapping("/getByOrder")
 	@ResponseBody
 	public ResponseEntity<ErrorResponse> getPriceOrder(@RequestParam String nameCol, @RequestParam String sort){
-		System.out.println("controller");
-		System.out.println(nameCol);
-		System.out.println(sort);
-		List<Price> prices = priceService.getByOrder(nameCol, sort);
+		List<Price> prices = priceService.getPriceOrder(nameCol, sort);
 		return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, prices), HttpStatus.OK);
 	}
 
