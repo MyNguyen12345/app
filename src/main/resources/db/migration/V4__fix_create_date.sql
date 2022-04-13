@@ -1,1 +1,1 @@
-ALTER TABLE property RENAME COLUMN createDate to create_date;
+ALTER TABLE property CHANGE createDate create_date datetime;

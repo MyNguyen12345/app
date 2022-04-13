@@ -42,6 +42,5 @@ public class WorkingSpaceApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println("check exist : "+accountService.existsUsername("trii"));
 	}
 }
