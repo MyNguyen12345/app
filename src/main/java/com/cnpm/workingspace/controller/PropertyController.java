@@ -2,6 +2,8 @@ package com.cnpm.workingspace.controller;
 
 import com.cnpm.workingspace.constants.ErrorCode;
 import com.cnpm.workingspace.dto.PropertyDto;
+import com.cnpm.workingspace.model.Price;
+import com.cnpm.workingspace.model.Property;
 import com.cnpm.workingspace.security.response.ErrorResponse;
 import com.cnpm.workingspace.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +50,12 @@ public class PropertyController {
     public ResponseEntity<ErrorResponse> deleteProperty(@PathVariable int id) {
         propertyService.deleteProperty(id);
         return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, null), HttpStatus.OK);
+    }
+
+    @GetMapping("/getByCity")
+    @ResponseBody
+    public ResponseEntity<ErrorResponse> getPriceOrder(@RequestParam String city){
+        List<Property> properties = propertyService.getPropertyByCity(city);
+        return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, properties), HttpStatus.OK);
     }
 }
