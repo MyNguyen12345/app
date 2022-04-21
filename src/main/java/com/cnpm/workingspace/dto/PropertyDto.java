@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-public class PropertyDto implements Serializable {
+public class PropertyDto {
     private Integer propertyId;
     private Integer customerId;
     private Integer propertyTypeId;

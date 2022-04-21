@@ -90,7 +90,6 @@ public class ReservationServiceImpl implements  ReservationService{
     public ReservationDto getReservationById(int id) {
         Reservation reservation = reservationRepository.getById(id);
         return toDtoMapper.map(reservation, ReservationDto.class);
-
     }
 
     @Override

@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
-public class RoomDto implements Serializable {
+public class RoomDto {
     private Integer roomId;
     private Integer propertyId;
     private Integer priceId;

@@ -10,7 +10,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class ReservationDto implements Serializable {
+public class ReservationDto {
     private int reservationId;
     private int roomId;
     private int customerId;

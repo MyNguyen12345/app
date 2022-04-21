@@ -1,7 +1,16 @@
 package com.cnpm.workingspace.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "room")
 public class Room {
@@ -38,9 +47,6 @@ public class Room {
     @Column(name = "description")
     private String description;
 
-    public Room() {
-    }
-
     public Room(Property property,
                 Price price,
                 RoomStatus roomStatus,
@@ -57,88 +63,5 @@ public class Room {
         this.capacity = capacity;
         this.image = image;
         this.description = description;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(String capacity) {
-        this.capacity = capacity;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public String getRoomName() {
-        return roomName;
-    }
-
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
-    }
-
-    public RoomStatus getRoomStatus() {
-        return roomStatus;
-    }
-
-    public void setRoomStatus(RoomStatus roomStatus) {
-        this.roomStatus = roomStatus;
-    }
-
-    public Price getPrice() {
-        return price;
-    }
-
-    public void setPrice(Price price) {
-        this.price = price;
-    }
-
-    public Property getProperty() {
-        return property;
-    }
-
-    public void setProperty(Property property) {
-        this.property = property;
-    }
-
-    public Integer getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(Integer id) {
-        this.roomId = id;
-    }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "(" +
-               "id = " + roomId + ", " +
-               "roomName = " + roomName + ", " +
-               "size = " + size + ", " +
-               "capacity = " + capacity + ", " +
-               "image = " + image + ", " +
-               "description = " + description + ")";
     }
 }
