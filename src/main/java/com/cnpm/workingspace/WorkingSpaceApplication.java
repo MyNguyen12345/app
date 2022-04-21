@@ -1,11 +1,10 @@
 package com.cnpm.workingspace;
 
-import com.cnpm.workingspace.dao.JdbcReservationDao;
 import com.cnpm.workingspace.security.jwt.JwtUtils;
 import com.cnpm.workingspace.service.AccountService;
+import com.cnpm.workingspace.service.ReservationStatusService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -27,14 +26,17 @@ public class WorkingSpaceApplication implements CommandLineRunner {
         return modelMapper;
     }
 
-	@Autowired
-	AccountService accountService;
+    @Autowired
+    AccountService accountService;
 
     public static void main(String[] args) {
         SpringApplication.run(WorkingSpaceApplication.class, args);
     }
 
-	@Override
-	public void run(String... args) throws Exception {
-	}
+    @Autowired
+    ReservationStatusService reservationStatusService;
+
+    @Override
+    public void run(String... args) throws Exception {
+    }
 }
