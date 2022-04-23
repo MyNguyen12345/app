@@ -90,4 +90,12 @@ public class RoomServiceImp implements RoomService{
         Room room = roomRepository.getById(id);
         return toDtoMapper.map(room, RoomDto.class);
     }
+
+    @Override
+    public List<RoomDto> getByPropertyId(int propertyId) {
+        List<Room> rooms = roomRepository.getByPropertyPropertyId(propertyId);
+        return rooms.stream()
+                    .map(room -> toDtoMapper.map(room, RoomDto.class))
+                    .collect(Collectors.toList());
+    }
 }

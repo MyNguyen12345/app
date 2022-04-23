@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -12,27 +13,31 @@ import java.util.Date;
 @Getter
 @Setter
 public class Customer {
-    @JsonIgnore
     @Id
-    @Column(name = "customer_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int customerId;
+    @Column(name = "customer_id", nullable = false)
+    private Integer customerId;
 
-    @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id")
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "account_id", nullable = false)
     private Account account;
-    @Column(name = "email")
+
+    @Column(name = "email", nullable = false)
     private String email;
-    @Column(name = "customer_name")
+
+    @Column(name = "customer_name", nullable = false)
     private String customerName;
-    @Column(name = "citizen_id")
-    private String citizenId = "1";
-    @Column(name = "birthday")
-    private Date birthday = new Date();
-    @Column(name = "nationality")
-    private String nationality = "VietNam";
-    @Column(name = "phone_number")
+
+    @Column(name = "citizen_id", nullable = false)
+    private String citizenId;
+
+    @Column(name = "birthday", nullable = false)
+    private LocalDate birthday;
+
+    @Column(name = "nationality", nullable = false)
+    private String nationality;
+
+    @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
     public Customer() {

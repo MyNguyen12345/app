@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -59,9 +58,6 @@ public class Property {
 
     @Column(name = "lon")
     private Double lon;
-
-    @OneToMany(mappedBy = "property")
-    private List<Review> reviews;
 
     public Property(Customer customer,
                     PropertyType propertyType,
