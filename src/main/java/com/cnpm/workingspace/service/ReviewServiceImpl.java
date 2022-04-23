@@ -10,11 +10,10 @@ import com.cnpm.workingspace.repository.ReviewRepository;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner.Mode;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.ModelMap;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,7 +45,40 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Override
-    public List<ReviewDto> getReviewByPropertyId(int propertyId) {
+    public List<ReviewDto> getAll() {
+        List<Review> reviews = reviewRepository.findAll();
+        return reviews.stream().map(review -> toDtoMapper.map(review, ReviewDto.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public ReviewDto getById(int id) {
+        Review review = reviewRepository.getById(id);
+        return toDtoMapper.map(review, ReviewDto.class);
+    }
+
+    @Override
+    public void insert(ReviewDto reviewDto) {
+        Review review = toEntityMapper.map(reviewDto, Review.class);
+        reviewRepository.save(review);
+    }
+
+    @Override
+    public boolean update(ReviewDto reviewDto, int id) {
+        Optional<Review> review = reviewRepository.findById(id);
+        if (review.isPresent()) {
+            reviewRepository.save(review.get());
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void delete(int id) {
+        reviewRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ReviewDto> getByPropertyId(int propertyId) {
         List<Review> reviews = reviewRepository.getByPropertyPropertyId(propertyId);
         return reviews.stream()
                       .map(review -> toDtoMapper.map(review, ReviewDto.class))
