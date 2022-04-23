@@ -15,10 +15,10 @@ import java.util.Date;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customer_id", nullable = false)
+    @Column(name = "customer_id")
     private Integer customerId;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id", nullable = false)
     private Account account;
 
@@ -31,7 +31,7 @@ public class Customer {
     @Column(name = "citizen_id", nullable = false)
     private String citizenId;
 
-    @Column(name = "birthday", nullable = false)
+    @Column(name = "birthday", nullable = false ,columnDefinition = "DATE")
     private LocalDate birthday;
 
     @Column(name = "nationality", nullable = false)
@@ -47,5 +47,28 @@ public class Customer {
         this.email = email;
         this.customerName = customerName;
         this.phoneNumber = phoneNumber;
+    }
+
+    public Customer(String email, String customerName, String citizenId, LocalDate birthday, String nationality, String phoneNumber) {
+        this.email = email;
+        this.customerName = customerName;
+        this.citizenId = citizenId;
+        this.birthday = birthday;
+        this.nationality = nationality;
+        this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "customerId=" + customerId +
+                ", account=" + account +
+                ", email='" + email + '\'' +
+                ", customerName='" + customerName + '\'' +
+                ", citizenId='" + citizenId + '\'' +
+                ", birthday=" + birthday +
+                ", nationality='" + nationality + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
     }
 }

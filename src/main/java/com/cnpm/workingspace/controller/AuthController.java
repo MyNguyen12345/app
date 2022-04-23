@@ -64,6 +64,7 @@ public class AuthController {
 
     @PostMapping("register")
     public ResponseEntity<?> register(@RequestBody CustomerAccount customerAccount){
+        System.out.println("### customerAccount : "+customerAccount);
         Account account=customerAccount.getAccount();
         if(accountService.existsUsername(account.getUsername())){
             return new ResponseEntity<>(new ErrorResponse(ErrorCode.USERNAME_ALREADY_EXISTS,null),HttpStatus.OK);
@@ -71,6 +72,8 @@ public class AuthController {
         System.out.println("not exists");
         Customer customer=customerAccount.getCustomer();
         customer.setAccount(account);
+        System.out.println("### Customer : "+customer);
+        System.out.println("### Account : "+account);
         try{
             int status=customerService.insertCustomer(customer);
             if(status==1) return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS,null),HttpStatus.OK);
