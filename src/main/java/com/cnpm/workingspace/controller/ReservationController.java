@@ -2,10 +2,13 @@ package com.cnpm.workingspace.controller;
 
 import com.cnpm.workingspace.constants.ErrorCode;
 import com.cnpm.workingspace.dto.ReservationDto;
+import com.cnpm.workingspace.sdo.DateStatus;
 import com.cnpm.workingspace.security.response.ErrorResponse;
 import com.cnpm.workingspace.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,5 +50,11 @@ public class ReservationController {
     public ResponseEntity<ErrorResponse> deleteReservation(@PathVariable int id) {
         reservationService.deleteReservation(id);
         return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, null), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/date_status/{roomId}")
+    public ResponseEntity<?> getDateStatus(@PathVariable int roomId, @RequestParam int month, @RequestParam int year){
+        List<DateStatus> cur=reservationService.getDateStatus(roomId,month,year);
+        return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, cur), HttpStatus.OK);
     }
 }

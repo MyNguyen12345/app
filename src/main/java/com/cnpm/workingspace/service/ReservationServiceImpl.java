@@ -1,5 +1,6 @@
 package com.cnpm.workingspace.service;
 
+import com.cnpm.workingspace.dao.ReservationDao;
 import com.cnpm.workingspace.dto.PropertyDto;
 import com.cnpm.workingspace.dto.ReservationDto;
 import com.cnpm.workingspace.dto.RoomDto;
@@ -11,6 +12,7 @@ import com.cnpm.workingspace.repository.CustomerRepository;
 import com.cnpm.workingspace.repository.PriceRepository;
 import com.cnpm.workingspace.repository.ReservationRepository;
 import com.cnpm.workingspace.repository.RoomRepository;
+import com.cnpm.workingspace.sdo.DateStatus;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ public class ReservationServiceImpl implements  ReservationService{
 
     @Autowired
     private RoomRepository roomRepository;
+
+    @Autowired
+    private ReservationDao reservationDao;
 
     @Autowired
     private CustomerRepository customerRepository;
@@ -86,5 +91,10 @@ public class ReservationServiceImpl implements  ReservationService{
         Reservation reservation = reservationRepository.getById(id);
         return toDtoMapper.map(reservation, ReservationDto.class);
 
+    }
+
+    @Override
+    public List<DateStatus> getDateStatus(int roomId, int month, int year) {
+        return reservationDao.getDateStatus(roomId,month,year);
     }
 }
