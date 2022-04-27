@@ -58,4 +58,11 @@ public class PropertyController {
         List<Property> properties = propertyService.getPropertyByCity(city);
         return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, properties), HttpStatus.OK);
     }
+
+    @GetMapping("/getByCityTypeName")
+    @ResponseBody
+    public ResponseEntity<ErrorResponse> getPropertyByCityTypeName(@RequestParam String city, @RequestParam int typeId, @RequestParam String name){
+        List<Property> properties = propertyService.getPropertyByCityTypeName(city, typeId, name);
+        return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, properties), HttpStatus.OK);
+    }
 }
