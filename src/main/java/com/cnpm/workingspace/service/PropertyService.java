@@ -18,4 +18,6 @@ public interface PropertyService {
     PropertyDto getPropertyById(int id);
 
     List<Property> getPropertyByCity(String city);
+
+    List<Property> getPropertyByCityTypeName(String city, int typeId, String name);
 }

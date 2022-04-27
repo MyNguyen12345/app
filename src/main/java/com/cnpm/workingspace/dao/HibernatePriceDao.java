@@ -23,6 +23,6 @@ public class HibernatePriceDao implements PriceDao{
         String GET_PRICE_ORDER_BY = "SELECT * FROM price ORDER BY " + nameCol + " " + sort;
 
         Session session = entityManager.unwrap(Session.class);
-        return session.createNativeQuery(GET_PRICE_ORDER_BY).getResultList();
+        return session.createNativeQuery(GET_PRICE_ORDER_BY, Price.class).getResultList();
     }
 }
