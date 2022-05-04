@@ -1,10 +1,13 @@
 package com.cnpm.workingspace.controller;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.Optional;
 
 import com.cnpm.workingspace.constants.ErrorCode;
 import com.cnpm.workingspace.security.response.ErrorResponse;
+import com.cnpm.workingspace.utils.PriceUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -67,4 +70,13 @@ public class PriceController {
 		return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, prices), HttpStatus.OK);
 	}
 
+	@GetMapping("/calcPrice/{id}")
+	public ResponseEntity<?> calcPrice(@PathVariable int id, String startDate, String endDate){
+		try{
+			double cost= PriceUtils.calcPrice(id,startDate,endDate,priceService);
+			return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS,cost),HttpStatus.OK);
+		} catch (Exception e){
+			return new ResponseEntity<>(new ErrorResponse(ErrorCode.ERROR,e.getMessage()),HttpStatus.OK);
+		}
+	}
 }
