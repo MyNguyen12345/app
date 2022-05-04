@@ -6,4 +6,5 @@ import java.util.*;
 
 public interface ReservationDao {
     List<DateStatus> getDateStatus(int roomId,int month,int year);
+    String getFurthestValidDate(int roomId,Date from);
 }

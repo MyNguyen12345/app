@@ -18,6 +18,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -95,5 +96,10 @@ public class ReservationServiceImpl implements  ReservationService{
     @Override
     public List<DateStatus> getDateStatus(int roomId, int month, int year) {
         return reservationDao.getDateStatus(roomId,month,year);
+    }
+
+    @Override
+    public String getFurthestValidDate(int roomId, Date from) {
+        return reservationDao.getFurthestValidDate(roomId,from);
     }
 }

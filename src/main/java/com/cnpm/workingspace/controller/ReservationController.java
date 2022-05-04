@@ -6,12 +6,15 @@ import com.cnpm.workingspace.sdo.DateStatus;
 import com.cnpm.workingspace.security.response.ErrorResponse;
 import com.cnpm.workingspace.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -56,5 +59,18 @@ public class ReservationController {
     public ResponseEntity<?> getDateStatus(@PathVariable int roomId, @RequestParam int month, @RequestParam int year){
         List<DateStatus> cur=reservationService.getDateStatus(roomId,month,year);
         return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, cur), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/furthest_valid_date/{roomId}")
+    public ResponseEntity<?> getFurthestValidDate(@PathVariable int roomId, @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date from){
+        try{
+//            SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+//            Date from=format.parse(fromStr);
+            System.out.println("# Date : "+from);
+            String furthestValidDate=reservationService.getFurthestValidDate(roomId,from);
+            return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS,furthestValidDate),HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(new ErrorResponse(ErrorCode.ERROR,e.getMessage()),HttpStatus.OK);
+        }
     }
 }

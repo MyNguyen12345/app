@@ -11,7 +11,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -42,6 +44,20 @@ public class JdbcReservationDao implements ReservationDao {
                 ")\n" +
                 "ORDER BY day\n";
         ret.addAll(jdbcTemplateObject.query(sql,new DateStatusMapper()));
+        return ret;
+    }
+
+    @Override
+    public String getFurthestValidDate(int roomId, Date fromDate) {
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+        String from=format.format(fromDate);
+        final String sql="SELECT DATE(create_date) - INTERVAL 1 DAY AS furthest_date FROM reservation \n" +
+                "WHERE room_id = "+roomId+"\n" +
+                "AND '"+from+"' < DATE(create_date)\n" +
+                "ORDER BY DATE(create_date)\n" +
+                "LIMIT 1\n";
+        System.out.println("###### sql : "+sql);
+        String ret=jdbcTemplateObject.queryForObject(sql,String.class);
         return ret;
     }
 }
