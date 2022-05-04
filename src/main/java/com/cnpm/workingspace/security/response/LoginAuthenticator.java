@@ -1,11 +1,15 @@
 package com.cnpm.workingspace.security.response;
 
+import com.cnpm.workingspace.model.Customer;
+
 public class LoginAuthenticator {
     private String jwtToken;
     private String refreshToken;
+    private Customer customer;
 
-    public LoginAuthenticator(String jwtToken) {
+    public LoginAuthenticator(String jwtToken, Customer customer) {
         this.jwtToken = jwtToken;
+        this.customer = customer;
     }
 
     public String getJwtToken() {
@@ -22,5 +26,13 @@ public class LoginAuthenticator {
 
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

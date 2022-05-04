@@ -58,8 +58,13 @@ public class AuthController {
         }
         final UserDetails userDetails = myUserDetailsService.loadUserByUsername(loginRequest.getUsername());
         final String jwt = jwtUtils.generateTokenFromName(userDetails.getUsername());
-
-        return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS,new LoginAuthenticator(jwt)),HttpStatus.OK);
+        try{
+            Account account=accountService.findAccountByUsername(userDetails.getUsername());
+            Customer customer=customerService.getCustomerByUserName(account);
+            return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS,new LoginAuthenticator(jwt,customer)),HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(new ErrorResponse(ErrorCode.ERROR,e.getMessage()),HttpStatus.OK);
+        }
     }
 
     @PostMapping("register")

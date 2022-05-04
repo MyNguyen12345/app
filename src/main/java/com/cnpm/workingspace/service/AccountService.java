@@ -6,4 +6,5 @@ import org.springframework.stereotype.Service;
 public interface AccountService {
     boolean existsUsername(String username);
     int insertAccount(Account account);
+    Account findAccountByUsername(String username);
 }

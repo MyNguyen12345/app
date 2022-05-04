@@ -18,6 +18,7 @@ public class Customer {
     @Column(name = "customer_id")
     private Integer customerId;
 
+    @JsonIgnore
     @OneToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id", nullable = false)
     private Account account;
