@@ -1,6 +1,7 @@
 package com.cnpm.workingspace.repository;
 
 import com.cnpm.workingspace.model.Property;
+import com.cnpm.workingspace.model.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,4 +15,6 @@ public interface PropertyRepository extends JpaRepository<Property, Integer> {
 
     @Query(value = GET_PROPERTY_BY_CITY, nativeQuery = true)
     List<Property> getPropertyByCity(String city);
+
+    List<Property> getByCustomerCustomerId(Integer customerId);
 }

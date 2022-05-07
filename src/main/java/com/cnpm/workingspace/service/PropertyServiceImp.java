@@ -31,18 +31,13 @@ public class PropertyServiceImp implements PropertyService{
 
     private PropertyDao propertyDao;
 
-    @Autowired
-    PropertyServiceImp (PropertyDao propertyDao, ModelMapper toDtoMapper, ModelMapper toEntityMapper){
-        this.propertyDao = propertyDao;
-        this.toDtoMapper = toDtoMapper;
-        this.toEntityMapper = toEntityMapper;
-    }
-
     private ModelMapper toDtoMapper;
 
     private ModelMapper toEntityMapper;
 
-    public PropertyServiceImp(ModelMapper toDtoMapper) {
+    public PropertyServiceImp(ModelMapper toDtoMapper, PropertyDao propertyDao) {
+        this.toDtoMapper = toDtoMapper;
+        this.propertyDao = propertyDao;
         this.toDtoMapper.createTypeMap(Property.class, PropertyDto.class)
                         .addMappings(mapper -> mapper.map(src -> src.getCustomer().getCustomerId(), PropertyDto::setCustomerId))
                         .addMappings(mapper -> mapper.map(src -> src.getPropertyType().getPropertyTypeId(), PropertyDto::setPropertyTypeId));
@@ -52,6 +47,7 @@ public class PropertyServiceImp implements PropertyService{
     public void setToEntityMapper(ModelMapper toEntityMapper) {
         Converter<Integer, Customer> customerConverter = context -> customerRepository.getById(context.getSource());
         Converter<Integer, PropertyType> propertyTypeConverter = context -> propertyTypeRepository.getById(context.getSource());
+        this.toEntityMapper = toEntityMapper;
         this.toEntityMapper.createTypeMap(PropertyDto.class, Property.class)
                            .addMappings(mapper -> mapper.using(customerConverter).map(PropertyDto::getCustomerId, Property::setCustomer))
                            .addMappings(mapper -> mapper.using(propertyTypeConverter).map(PropertyDto::getPropertyTypeId, Property::setPropertyType));
@@ -74,6 +70,7 @@ public class PropertyServiceImp implements PropertyService{
     @Override
     public boolean updateProperty(PropertyDto propertyDto, int id) {
         Optional<Property> p = propertyRepository.findById(id);
+        System.out.println("id: " + id);
         if (p.isPresent()) {
             propertyRepository.save(toEntityMapper.map(propertyDto, Property.class));
             return true;
@@ -100,5 +97,10 @@ public class PropertyServiceImp implements PropertyService{
     @Override
     public List<Property> getPropertyByCityTypeName(String city, int typeId, String name) {
         return propertyDao.getPropertyByCityTypeName(city, typeId, name);
+    }
+
+    @Override
+    public List<Property> getByCustomerCustomerId(Integer customerId) {
+        return propertyRepository.getByCustomerCustomerId(customerId);
     }
 }

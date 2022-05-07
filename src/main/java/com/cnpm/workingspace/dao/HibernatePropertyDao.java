@@ -1,5 +1,6 @@
 package com.cnpm.workingspace.dao;
 
+import com.cnpm.workingspace.dto.PropertyDto;
 import com.cnpm.workingspace.model.Property;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;

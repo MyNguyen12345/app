@@ -20,4 +20,6 @@ public interface PropertyService {
     List<Property> getPropertyByCity(String city);
 
     List<Property> getPropertyByCityTypeName(String city, int typeId, String name);
+
+    List<Property> getByCustomerCustomerId(Integer customerId);
 }

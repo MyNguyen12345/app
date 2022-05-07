@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/properties")
+@RequestMapping("/api/property")
 public class PropertyController {
     @Autowired
     private PropertyService propertyService;
@@ -61,8 +61,15 @@ public class PropertyController {
 
     @GetMapping("/getByCityTypeName")
     @ResponseBody
-    public ResponseEntity<ErrorResponse> getPropertyByCityTypeName(@RequestParam String city, @RequestParam int typeId, @RequestParam String name){
+    public ResponseEntity<ErrorResponse> getPropertyByCityTypeName(@RequestParam String city, @RequestParam(defaultValue = "0") int typeId, @RequestParam String name){
         List<Property> properties = propertyService.getPropertyByCityTypeName(city, typeId, name);
+        return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, properties), HttpStatus.OK);
+    }
+
+    @GetMapping("/getByCustomerId/{customerId}")
+    public ResponseEntity<ErrorResponse> getByCustomerId(@PathVariable int customerId){
+        System.out.println("get by customer id");
+        List<Property> properties = propertyService.getByCustomerCustomerId(customerId);
         return new ResponseEntity<>(new ErrorResponse(ErrorCode.SUCCESS, properties), HttpStatus.OK);
     }
 }
